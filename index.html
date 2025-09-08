@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timetable Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 College Timetable Generator</h1>
+            <p>Bhagalpur College of Engineering</p>
+        </div>
+
+        <div class="main-content">
+            <div class="info-box">
+                <h3>📋 Instructions</h3>
+                <ul>
+                    <li>Add multiple programs (branch + semester) using the "Add Program" button</li>
+                    <li>Enter subject details with L-T-P format (Lectures-Tutorials-Practicals)</li>
+                    <li>Specify how many groups the class should be divided into for practical sessions</li>
+                    <li>Practical hours are allocated per group (each group gets the full hours)</li>
+                    <li>Different groups can have practicals for different subjects at the same time</li>
+                    <li>Drag and drop subjects to rearrange the timetable manually</li>
+                    <li>Use the toolbox to add Library, TPPG, or Mentor-Mentee sessions</li>
+                    <li>Faculty cannot be assigned to multiple classes simultaneously across all programs</li>
+                    <li>Red highlighted cells indicate faculty conflicts</li>
+                </ul>
+                
+                <div class="color-legend">
+                    <div class="color-item"><div class="color-box lecture-color"></div> Lecture</div>
+                    <div class="color-item"><div class="color-box tutorial-color"></div> Tutorial</div>
+                    <div class="color-item"><div class="color-box practical-color"></div> Practical</div>
+                    <div class="color-item"><div class="color-box library-color"></div> Library</div>
+                    <div class="color-item"><div class="color-box tppg-color"></div> TPPG</div>
+                    <div class="color-item"><div class="color-box mentor-color"></div> Mentor-Mentee</div>
+                </div>
+            </div>
+
+            <div class="toolbox no-print">
+                <h3>🛠️ Toolbox (Drag items to timetable)</h3>
+                <div class="toolbox-items">
+                    <div class="toolbox-item" draggable="true" data-type="library">Library</div>
+                    <div class="toolbox-item" draggable="true" data-type="tppg">TPPG (Training & Placement)</div>
+                    <div class="toolbox-item" draggable="true" data-type="mentor">Mentor-Mentee</div>
+                    <div class="toolbox-item" draggable="true" data-type="empty">Clear Slot</div>
+                </div>
+            </div>
+
+            <div class="controls-row no-print">
+                <label>
+                    <input type="checkbox" id="autoFillVacant" checked>
+                    Auto-fill vacant slots with activities
+                </label>
+                <label>
+                    <input type="checkbox" id="enableDragDrop" checked>
+                    Enable Drag & Drop
+                </label>
+                <label>
+                    <input type="checkbox" id="showStats" checked>
+                    Show Statistics
+                </label>
+                <label>
+                    <input type="checkbox" id="highlightConflicts" checked>
+                    Highlight Faculty Conflicts
+                </label>
+            </div>
+
+            <div class="input-section no-print">
+                <div class="button-group">
+                    <button class="btn-secondary" onclick="addProgram()">
+                        ➕ Add Program
+                    </button>
+                    <button class="btn-primary" onclick="generateAllTimetables()">
+                        🗓️ Generate All Timetables
+                    </button>
+                    <button class="btn-export" onclick="saveTimetable()">
+                        💾 Save Timetable
+                    </button>
+                    <button class="btn-export" onclick="loadTimetable()">
+                        📂 Load Timetable
+                    </button>
+                    <button class="btn-undo" onclick="undoAction()">
+                        ↩️ Undo
+                    </button>
+                    <button class="btn-export" onclick="window.print()">
+                        🖨️ Print Timetable
+                    </button>
+                    <button class="btn-danger" onclick="clearAll()">
+                        🗑️ Clear All
+                    </button>
+                </div>
+
+                <div id="programsContainer">
+                    <!-- Programs will be added here dynamically -->
+                </div>
+            </div>
+
+            <div id="messageContainer"></div>
+            <div id="timetablesOutput" class="hidden">
+                <div class="program-tabs no-print" id="programTabs">
+                    <!-- Program tabs will be added here dynamically -->
+                </div>
+                <div id="timetableViews">
+                    <!-- Timetable views will be added here dynamically -->
+                </div>
+                <div id="timetableStats" class="stats-box">
+                    <!-- Statistics will be added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
